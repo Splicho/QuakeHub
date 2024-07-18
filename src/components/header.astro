@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import Logo from '../../public/images/Logo.png';
+import Discord from '@/components/Icon/discord.astro';
+import { Button } from '@/components/ui/button';
+const iconClass = 'iconify'; // Class used by Iconify to apply icons
+const discordIcon = 'ic:baseline-discord'; // The icon name from Iconify
+---
+
+<header class="flex items-center border-b-[1px] border-zinc-800">
+    <nav class="w-full mx-auto max-w-[1440px] p-4 flex items-center">
+        <div class="">
+            <a href="/" class="opacity-1 hover:opacity-70 transition-opacity duration-500">
+            <Image src={Logo} alt="Logo" class="max-w-[150px] mr-8" />
+        </a>
+        </div>
+        <div class="flex gap-6">
+            <a href="" class="">Servers</a>
+            <a href="" class="">News</a>
+        </div>
+        <div class="ml-auto">
+            <a href="https://discord.gg/relaxca" target="_blank">
+            <Button className="gap-1 font-medium"><span class={iconClass} data-icon={discordIcon} data-inline="false" style="font-size: 24px; color: #fff;"></span>Join our Discord!</Button>
+        </a>
+        </div>
+    </nav>
+</header>
