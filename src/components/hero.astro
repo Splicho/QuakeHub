@@ -1,10 +1,32 @@
 ---
+const iconClass = "iconify";
+const arrowIcon = "ri:arrow-right-line";
 ---
-<section class="flex justify-center text-center p-48 relative z-10">
-    <div class="flex gap-3 flex-col">
-        <h1 class="text-5xl font-bold tracking-tighter text-white">Real-Time <span class="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent">Quake Live</span> Server Tracking</h1>
-        <p class="text-zinc-500">Track, monitor, and join QuakeLive servers with live data from Steam.</p>
-    </div>
-</div>    
-</section>
 
+<section class="flex justify-center text-center p-48 relative z-10">
+  <div class="flex gap-5 flex-col items-center">
+    <a href="/" class="hover:bg-green-700 hover:bg-opacity-20 rounded-full">
+      <div
+        class="flex flex-shrink-1 flex-col items-center rounded-full px-2.5 py-1.5 font-semibold max-w-[200px] text-xs text-primary border-green-600 border"
+      >
+        <span class="flex gap-1 text-green-600"
+          >🎉 QuakeHub v1.0 is out
+          <span
+            class={iconClass}
+            data-icon={arrowIcon}
+            data-inline="false"
+            style="font-size: 15px; color: text-green-600;"></span>
+        </span>
+      </div>
+    </a>
+    <h1 class="text-5xl font-bold tracking-tighter text-white">
+      Real-Time <span
+        class="bg-gradient-to-r from-red-500 to-red-800 bg-clip-text text-transparent"
+        >Quake Live</span
+      > Server Tracking
+    </h1>
+    <p class="text-zinc-500">
+      Track, monitor, and join QuakeLive servers with live data from Steam.
+    </p>
+  </div>
+</section>
