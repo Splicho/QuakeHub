@@ -2,26 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '@/components/header.astro';
 import Hero from '@/components/hero.astro';
-import ServerList from '../components/ServerList.astro';
-import type { Server } from '../types/index.ts';
 import '@/styles/globals.css'
-import type { APIRoute } from 'astro';
-
-const fetchServers = async (): Promise<Server[]> => {
-  const response = await fetch('/api/quake-live-servers');
-  const data = await response.json();
-  return data;
-};
-
-const servers = await fetchServers();
-
 ---
 
 <Layout title="QuakeHub | Your Quake Hub">
 	<Header />
 	<div class="wrapper">
 	<Hero />
-	<ServerList servers={servers} />
 	</div>
 </Layout>
 
