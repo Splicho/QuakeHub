@@ -1,58 +1,199 @@
 ---
+import Drawer from '../components/ServerDrawer.astro'; // Adjust the path as needed
 import { Image } from 'astro:assets';
 import Germany from '/public/images/flags/de.png';
+import { Button } from '@/components/ui/button';
 const iconClass = 'iconify';
-const lock = 'fluent-emoji:locked';
+const spectator = 'noto:eye';
+
+let goal = 350; // Default goal value
+
+function adjustGoal(adjustment: number): void {
+  goal = Math.max(200, Math.min(400, goal + adjustment));
+  const goalDisplay = document.getElementById('goal-display');
+  if (goalDisplay) {
+    goalDisplay.textContent = String(goal); // Convert to string
+  }
+}
+
+function closeDrawer(): void {
+  const drawerContent = document.getElementById('drawer-content');
+  const overlay = document.getElementById('overlay');
+  if (drawerContent) {
+    drawerContent.classList.add('translate-y-full');
+    drawerContent.classList.remove('translate-y-0');
+  }
+  if (overlay) {
+    overlay.classList.add('hidden');
+  }
+}
+
+function openDrawer(): void {
+  const drawerContent = document.getElementById('drawer-content');
+  const overlay = document.getElementById('overlay');
+  if (drawerContent) {
+    drawerContent.classList.remove('translate-y-full');
+    drawerContent.classList.add('translate-y-0');
+  }
+  if (overlay) {
+    overlay.classList.remove('hidden');
+  }
+}
 ---
 
 <section>
-    <div class="rounded-[0.5rem] border">
-      <div class="flex flex-col gap-3 p-4">
-        <a href="#" class="flex justify-between items-center gap-4 p-2 hover:bg-primary hover:text-white rounded-md transition-colors">
-          <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
-          <span class="flex-grow">relax ca #1 - https://discord.gg/relaxca</span>
-          <div class="flex-shrink-0 w-12 text-center">
-            <span>9/12</span>
-          </div>
-          <span class="flex-shrink-0 w-20 text-center">
-            Asylum
-          </span>
-          <div class="flex-shrink-0 w-32 text-center">
-            <span class="uppercase text-sm font-bold text-orange-400">Match warmup</span>
-          </div>
-        </a>
-        <a href="#" class="flex justify-between items-center gap-4 p-2 hover:bg-primary hover:text-white rounded-md transition-colors">
-            <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
-            <span class="flex gap-3 items-center flex-grow">relax ca pickup #4 - https://discord.gg/relaxca
-                <span class={iconClass}  data-icon={lock} data-inline="false" style="font-size: 20px; color: "></span>
-            </span>
-            <div class="flex-shrink-0 w-12 text-center">
-              <span>5/12</span>
+  <div class="rounded-[0.5rem] border">
+    <div class="flex flex-col gap-1 p-1">
+      <a href="#" class="flex justify-between items-center gap-4 p-1 hover:bg-primary hover:text-white rounded-md transition-colors server-link" data-drawer-trigger>
+        <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
+        <span class="flex-grow">relax ca #1 - https://discord.gg/relaxca</span>
+        <div class="flex-shrink-0 w-12 text-center">
+          <span>9/12</span>
+        </div>
+        <span class="flex-shrink-0 w-20 text-center">
+          Asylum
+        </span>
+        <div class="flex-shrink-0 w-32 text-center">
+          <span class="uppercase text-sm font-bold text-orange-400">Match warmup</span>
+        </div>
+      </a>
+      <a href="#" class="flex justify-between items-center gap-4 p-1 hover:bg-primary hover:text-white rounded-md transition-colors server-link" data-drawer-trigger>
+        <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
+        <span class="flex-grow">relax ca #2 - https://discord.gg/relaxca</span>
+        <div class="flex-shrink-0 w-12 text-center">
+          <span>6/12</span>
+        </div>
+        <span class="flex-shrink-0 w-20 text-center">
+          Trinity
+        </span>
+        <div class="flex-shrink-0 w-32 text-center">
+          <span class="uppercase text-sm font-bold text-orange-400">Match warmup</span>
+        </div>
+      </a>
+      <a href="#" class="flex justify-between items-center gap-4 p-1 hover:bg-primary hover:text-white rounded-md transition-colors server-link" data-drawer-trigger>
+        <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
+        <span class="flex-grow">IZI PUB#2 - Clan Arena - 8v8</span>
+        <div class="flex-shrink-0 w-12 text-center">
+          <span>27/32</span>
+        </div>
+        <span class="flex-shrink-0 w-20 text-center">
+          ts_ca1
+        </span>
+        <div class="flex-shrink-0 w-32 text-center">
+          <span class="text-blue-700 text-sm font-bold">3</span>
+          :
+          <span class="text-red-700 text-sm font-bold">5</span>
+        </div>
+      </a>
+      <!-- Other links ... -->
+    </div>
+  </div>
+  <Drawer id="drawer">
+    <div slot="header" class="flex items-center justify-between">
+    </div>
+    <div slot="content">
+      <div class="p-4 pb-0">
+          <div class="flex-1 text-center">
+            <div class="text-7xl font-bold tracking-tighter" id="goal-display">
+                1.863
             </div>
-            <span class="flex-shrink-0 w-20 text-center">
-              Trinity
-            </span>
-            <div class="flex-shrink-0 w-32 text-center">
-              <span class="uppercase text-sm font-bold text-orange-400">Match warmup</span>
+            <div class="text-[0.70rem] uppercase text-muted-foreground">
+              Average Server Elo
             </div>
-          </a>
-        <a href="#" class="flex justify-between items-center gap-4 p-2 hover:bg-primary hover:text-white rounded-md transition-colors">
-          <Image src={Germany} alt="Germany Flag" class="w-6 flex-shrink-0" />
-          <span class="flex-grow">IZI PUB#3 - Clan Arena - 16v16</span>
-          <div class="flex-shrink-0 w-12 text-center">
-            <span>27/32</span>
           </div>
-          <span class="flex-shrink-0 w-20 text-center">
-            ts_ca1
-          </span>
-          <div class="flex-shrink-0 w-32 flex justify-center items-center text-center gap-2">
-            <span class="text-blue-800 font-bold text-sm">2</span>
-            :
-            <span class="text-red-800 font-bold text-sm">0</span>
+          <div class="mt-3 mb-3 border"></div>
+          <div class="flex flex-col">
+            <div class="flex justify-between">
+                <span>LORD1</span>
+                <span>2134 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>isevendeuce</span>
+                <span>2094 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>aleksa</span>
+                <span>2013 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>zhen</span>
+                <span>1943 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>Mitch</span>
+                <span>1901 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>kosmonautas1</span>
+                <span>1843 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>senzu mesingze</span>
+                <span>1913 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span>Igor</span>
+                <span>1564 Elo</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="flex gap-2 items-center">PPPAULIE
+                    <span class={iconClass}  data-icon={spectator} data-inline="false" style="font-size: 15px;"></span>   
+                </span>
+                <span>1364 Elo</span>
+            </div>
           </div>
-        </a>
+        </div>
+        <div class="mt-3 h-[120px]">
+          <!-- Your chart implementation -->
+        </div>
       </div>
     </div>
-  </section>
-  
-  
+    <div slot="footer" class="mt-auto flex flex-col gap-2 p-4">
+      <Button variant="destructive">Join Server</Button>
+    </div>
+  </Drawer>
+</section>
+
+<!-- Client-side script -->
+<script type="module">
+  // Ensure this code runs only on the client side
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-drawer-trigger]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        openDrawer();
+      });
+    });
+  });
+
+  function adjustGoal(adjustment) {
+    goal = Math.max(200, Math.min(400, goal + adjustment));
+    const goalDisplay = document.getElementById('goal-display');
+    if (goalDisplay) {
+      goalDisplay.textContent = String(goal); // Convert to string
+    }
+  }
+
+  function closeDrawer() {
+    const drawerContent = document.getElementById('drawer-content');
+    const overlay = document.getElementById('overlay');
+    if (drawerContent) {
+      drawerContent.classList.add('translate-y-full');
+      drawerContent.classList.remove('translate-y-0');
+    }
+    if (overlay) {
+      overlay.classList.add('hidden');
+    }
+  }
+
+  function openDrawer() {
+    const drawerContent = document.getElementById('drawer-content');
+    const overlay = document.getElementById('overlay');
+    if (drawerContent) {
+      drawerContent.classList.remove('translate-y-full');
+      drawerContent.classList.add('translate-y-0');
+    }
+    if (overlay) {
+      overlay.classList.remove('hidden');
+    }
+  }
+</script>

@@ -1,0 +1,91 @@
+---
+const { id = 'drawer' } = Astro.props;
+---
+
+<!-- Drawer Container -->
+<div id={id} class="fixed inset-0 z-50 flex items-end pointer-events-none">
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden pointer-events-auto" onclick="handleOverlayClick(event)"></div>
+
+  <!-- Drawer Content -->
+  <div id="drawer-content" class="w-full bg-background border text-white shadow-lg transform translate-y-full transition-transform duration-300 ease-in-out z-50 pointer-events-auto">
+    <div class="relative">
+      <!-- Close Button -->
+      <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-300" onclick="handleCloseClick(event)">
+        <span class="sr-only">Close</span>&#10005;
+      </button>
+      <!-- Drawer Content -->
+      <div class="p-4 max-w-sm mx-auto">
+        <slot name="header" />
+        <slot name="content" />
+        <slot name="footer" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Show or hide the drawer and overlay
+  function handleOverlayClick(event) {
+    if (event.target && event.target.id === 'overlay') {
+      closeDrawer();
+    }
+  }
+
+  function handleCloseClick(event) {
+    event.stopPropagation(); // Prevent click event from bubbling to the overlay
+    closeDrawer();
+  }
+
+  function closeDrawer() {
+    const drawerContent = document.getElementById('drawer-content');
+    const overlay = document.getElementById('overlay');
+    if (drawerContent) {
+      drawerContent.classList.add('translate-y-full');
+      drawerContent.classList.remove('translate-y-0');
+    }
+    if (overlay) {
+      overlay.classList.add('hidden');
+    }
+  }
+
+  function openDrawer() {
+    const drawerContent = document.getElementById('drawer-content');
+    const overlay = document.getElementById('overlay');
+    if (drawerContent) {
+      drawerContent.classList.remove('translate-y-full');
+      drawerContent.classList.add('translate-y-0');
+    }
+    if (overlay) {
+      overlay.classList.remove('hidden');
+    }
+  }
+
+  // Set up event listeners for drawer triggers
+  document.querySelectorAll('[data-drawer-trigger]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      openDrawer();
+    });
+  });
+</script>
+
+<style>
+  .fixed { position: fixed; }
+  .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+  .w-full { width: 100%; }
+  .bg-gray-900 { background-color: #1a1a1a; }
+  .text-white { color: #ffffff; }
+  .text-gray-400 { color: #d1d5db; }
+  .text-gray-300 { color: #e5e7eb; }
+  .shadow-lg { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+  .translate-y-full { transform: translateY(100%); }
+  .translate-y-0 { transform: translateY(0); }
+  .transition-transform { transition: transform 0.3s ease-in-out; }
+  .bg-black { background-color: #000000; }
+  .opacity-50 { opacity: 0.5; }
+  .z-40 { z-index: 40; }
+  .z-50 { z-index: 50; }
+  .hidden { display: none; }
+  .pointer-events-none { pointer-events: none; }
+  .pointer-events-auto { pointer-events: auto; }
+</style>
