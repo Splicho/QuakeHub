@@ -3,19 +3,27 @@ const iconClass = "iconify";
 const arrowIcon = "ri:arrow-right-line";
 ---
 
-<section class="flex justify-center text-center p-48 relative z-10">
-  <div class="flex gap-5 flex-col items-center">
+<section class="relative flex justify-center text-center p-48">
+  <div class="absolute inset-0 z-0 w-full h-full overflow-hidden">
+    <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay muted loop>
+      <source src="/public/video/hero-intro.webm" type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent"></div>
+  </div>
+  <div class="relative z-10 flex flex-col items-center gap-5">
     <a href="/" class="hover:bg-green-700 hover:bg-opacity-20 rounded-full">
       <div
-        class="flex flex-shrink-1 flex-col items-center rounded-full px-2.5 py-1.5 font-semibold max-w-[200px] text-xs text-primary border-green-600 border"
+        class="flex flex-col items-center rounded-full px-2.5 py-1.5 font-semibold max-w-[200px] text-xs text-primary border-green-600 border"
       >
-        <span class="flex gap-1 text-green-600"
-          >🎉 QuakeHub v1.0 is out
+        <span class="flex gap-1 text-green-600">
+          🎉 QuakeHub v1.0 is out
           <span
             class={iconClass}
             data-icon={arrowIcon}
             data-inline="false"
-            style="font-size: 15px; color: text-green-600;"></span>
+            style="font-size: 15px; color: text-green-600;"
+          ></span>
         </span>
       </div>
     </a>
